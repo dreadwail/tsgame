@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "target": "es5",
+    "moduleResolution": "node",
+    "lib": ["dom", "es2015"],
+    "sourceMap": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "noEmitHelpers": true
+  },
+  "exclude": ["node_modules", "config", "dist"]
+}

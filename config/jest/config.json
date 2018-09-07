@@ -1,0 +1,33 @@
+{
+  "cacheDirectory": "<rootDir>/.jest",
+  "clearMocks": true,
+  "collectCoverageFrom": ["src/**/*.{js,ts}", "!**/node_modules/**"],
+  "coveragePathIgnorePatterns": ["<rootDir>/config/jest/", "/node_modules/", "index.ts"],
+  "coverageReporters": ["text", "text-summary", "html"],
+  "coverageThreshold": {
+    "global": {
+      "branches": 100,
+      "functions": 100,
+      "lines": 100,
+      "statements": 100
+    }
+  },
+  "globals": {
+    "ts-jest": {
+      "useBabelrc": true
+    }
+  },
+  "moduleFileExtensions": ["js", "jsx", "json", "ts", "tsx"],
+  "modulePathIgnorePatterns": ["<rootDir>/coverage", "<rootDir>/dist"],
+  "modulePaths": ["<rootDir>/src"],
+  "rootDir": "../..",
+  "setupTestFrameworkScriptFile": "<rootDir>/config/jest/setup.ts",
+  "testEnvironment": "jest-environment-jsdom-global",
+  "testRegex": "\\.test\\.(ts|tsx)$",
+  "testURL": "http://localhost",
+  "transform": {
+    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.js?$": "<rootDir>/node_modules/babel-jest"
+  },
+  "transformIgnorePatterns": ["node_modules/(?!excalibur)"]
+}
