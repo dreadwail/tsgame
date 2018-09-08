@@ -1,19 +1,13 @@
-import { Engine, ILoadable, Loader, Logger, LogLevel } from 'excalibur';
+import { start } from './engine';
+import { configureLogger, getLogger } from './logger';
 
-Logger.getInstance().defaultLevel = LogLevel.Info;
+configureLogger();
 
-const game = new Engine({
-  width: 800,
-  height: 600,
-  suppressMinimumBrowserFeatureDetection: false,
-  suppressConsoleBootMessage: false,
-});
-
-const loader = new Loader();
-const resources: Record<string, ILoadable> = {};
-
-Object.keys(resources).forEach(key => {
-  loader.addResource(resources[key]);
-});
-
-export const start = () => game.start(loader);
+start().then(
+  () => {
+    getLogger().info('Game started');
+  },
+  e => {
+    getLogger().error(e);
+  }
+);
