@@ -4,6 +4,14 @@ import { configureLogger, getLogger } from './logger';
 
 describe('logger', () => {
   describe('configureLogger', () => {
+    beforeEach(() => {
+      configureLogger();
+    });
+
+    it('returns the logger instance', () => {
+      expect(getLogger()).toBe(Logger.getInstance());
+    });
+
     describe('when no level is specified', () => {
       beforeEach(() => {
         configureLogger();
