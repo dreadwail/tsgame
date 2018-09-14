@@ -1,13 +1,14 @@
 import { start } from './engine';
-import { configureLogger, getLogger } from './logger';
+import { configureLogger } from './logger';
 
-configureLogger();
+const logger = configureLogger();
 
-start().then(
-  () => {
-    getLogger().info('Game started');
-  },
-  e => {
-    getLogger().error(e);
-  }
-);
+const onStart = () => {
+  logger.info('Game started');
+};
+
+const onError = (error: Error) => {
+  logger.error(error);
+};
+
+start().then(onStart, onError);
