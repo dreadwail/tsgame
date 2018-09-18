@@ -1,7 +1,9 @@
 import { start } from './engine';
-import { configureLogger } from './logger';
+import { configureLogger, getLogger } from './logger';
 
-const logger = configureLogger();
+configureLogger();
+
+const logger = getLogger();
 
 const onStart = () => {
   logger.info('Game started');

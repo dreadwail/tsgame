@@ -8,10 +8,6 @@ describe('logger', () => {
       configureLogger();
     });
 
-    it('returns the logger instance', () => {
-      expect(getLogger()).toBe(Logger.getInstance());
-    });
-
     describe('when no level is specified', () => {
       beforeEach(() => {
         configureLogger();
