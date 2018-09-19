@@ -1,7 +1,7 @@
 {
   "cacheDirectory": "<rootDir>/.jest",
   "clearMocks": true,
-  "collectCoverageFrom": ["src/**/*.{js,ts}", "!**/node_modules/**"],
+  "collectCoverageFrom": ["src/**/*.{js,ts}", "!**/node_modules/**", "!**/mocking/**"],
   "coveragePathIgnorePatterns": ["<rootDir>/config/jest/", "/node_modules/", "index.ts"],
   "coverageReporters": ["text", "text-summary", "html"],
   "coverageThreshold": {
@@ -14,7 +14,9 @@
   },
   "globals": {
     "ts-jest": {
-      "useBabelrc": true
+      "useBabelrc": true,
+      "ignoreCoverageForDecorators": true,
+      "ignoreCoverageForAllDecorators": true
     }
   },
   "moduleFileExtensions": ["js", "jsx", "json", "ts", "tsx"],
