@@ -1,68 +1,92 @@
 jest.mock('./loader');
-jest.mock('./player');
+jest.mock('./actors/Player');
+jest.mock('./scenes/Map');
 jest.mock('excalibur');
 
-import { Actor, Color, DisplayMode, Engine, Loader } from 'excalibur';
+import { Color, DisplayMode, Engine, Loader } from 'excalibur';
 
 import { start } from './engine';
 import { createLoader } from './loader';
-import { createPlayer } from './player';
+import { createMockEngine } from './mocking';
+import Map from './scenes/Map';
 
 describe('engine', () => {
   describe('start', () => {
-    let player: Actor;
+    let engine: Engine;
     let loader: Loader;
+    let promise: Promise<void>;
 
     beforeEach(async () => {
-      player = new Actor({ id: 42 });
-      (createPlayer as jest.Mock).mockReturnValue(player);
+      engine = createMockEngine();
+      ((Engine as any) as jest.Mock).mockImplementation(() => engine);
 
       loader = new Loader();
       (createLoader as jest.Mock).mockReturnValue(loader);
-
-      await start();
     });
 
-    it('creates an engine with the right dimensions', () => {
-      expect(Engine).toHaveBeenCalledWith(
-        expect.objectContaining({
-          width: 800,
-          height: 600,
-        })
-      );
+    describe('when there is an engine error', () => {
+      let error: Error;
+
+      beforeEach(async () => {
+        error = new Error('bang');
+        (engine.start as jest.Mock).mockReturnValue(Promise.reject(error));
+
+        promise = start();
+      });
+
+      it('returns a rejecting promise', async () => {
+        return expect(promise).rejects.toEqual(error);
+      });
     });
 
-    it('creates an engine that supresses extraneous logging', () => {
-      expect(Engine).toHaveBeenCalledWith(
-        expect.objectContaining({
-          suppressMinimumBrowserFeatureDetection: true,
-          suppressConsoleBootMessage: true,
-        })
-      );
-    });
+    describe('when the game starts successfully', () => {
+      beforeEach(async () => {
+        (engine.start as jest.Mock).mockReturnValue(Promise.resolve());
 
-    it('creates an engine that has the right display mode', () => {
-      expect(Engine).toHaveBeenCalledWith(
-        expect.objectContaining({
-          displayMode: DisplayMode.FullScreen,
-        })
-      );
-    });
+        promise = start();
+        await promise;
+      });
 
-    it('creates an engine with the right background color', () => {
-      expect(Engine).toHaveBeenCalledWith(
-        expect.objectContaining({
-          backgroundColor: Color.Black,
-        })
-      );
-    });
+      it('returns a resolving promise', () => {
+        return expect(promise).resolves.toBeUndefined();
+      });
 
-    it('creates an engine with the player added', () => {
-      expect(Engine.prototype.add).toHaveBeenCalledWith(player);
-    });
+      it('creates an engine with the right dimensions', () => {
+        expect(Engine).toHaveBeenCalledWith(expect.objectContaining({ width: 800, height: 600 }));
+      });
 
-    it('starts the game with the loader', () => {
-      expect(Engine.prototype.start).toHaveBeenCalledWith(loader);
+      it('creates an engine that supresses extraneous logging', () => {
+        expect(Engine).toHaveBeenCalledWith(
+          expect.objectContaining({
+            suppressMinimumBrowserFeatureDetection: true,
+            suppressConsoleBootMessage: true,
+          })
+        );
+      });
+
+      it('creates an engine that has the right display mode', () => {
+        expect(Engine).toHaveBeenCalledWith(
+          expect.objectContaining({ displayMode: DisplayMode.FullScreen })
+        );
+      });
+
+      it('creates an engine with the right background color', () => {
+        expect(Engine).toHaveBeenCalledWith(
+          expect.objectContaining({ backgroundColor: Color.Black })
+        );
+      });
+
+      it('creates an engine with the map added', () => {
+        expect(engine.add).toHaveBeenCalledWith('map', expect.any(Map));
+      });
+
+      it('starts the game with the loader', () => {
+        expect(engine.start).toHaveBeenCalledWith(expect.any(Loader));
+      });
+
+      it('sets the starting scene to be the map', () => {
+        expect(engine.goToScene).toHaveBeenCalledWith('map');
+      });
     });
   });
 });

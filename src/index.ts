@@ -1,16 +1,12 @@
+import { Logger, LogLevel } from 'excalibur';
+
 import { start } from './engine';
-import { configureLogger, getLogger } from './logger';
 
-configureLogger();
-
-const logger = getLogger();
+const logger = Logger.getInstance();
+logger.defaultLevel = LogLevel.Info;
 
 const onStart = () => {
   logger.info('Game started');
 };
 
-const onError = (error: Error) => {
-  logger.error(error);
-};
-
-start().then(onStart, onError);
+start().then(onStart, logger.error);
