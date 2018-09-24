@@ -9,6 +9,7 @@
     "clean:jest": "shx rm -rf .jest",
     "clean:coverage": "shx rm -rf \"coverage/!(.keep)\"",
     "clean:dist": "shx rm -rf dist",
+    "clean:npm": "shx rm -rf node_modules",
     "clean": "run-p clean:*",
     "postinstall": "run-s build",
     "start": "webpack-dev-server --env.mode development --open",
@@ -21,6 +22,7 @@
     "excalibur": "0.18.0"
   },
   "devDependencies": {
+    "@beyonk/google-fonts-webpack-plugin": "0.5.0",
     "@types/jest": "23.3.0",
     "@types/node": "10.5.3",
     "babel-jest": "23.4.2",
