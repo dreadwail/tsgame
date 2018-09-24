@@ -9,6 +9,7 @@ import { start } from './engine';
 import { createLoader } from './loader';
 import { createMockEngine } from './mocking';
 import Map from './scenes/Map';
+import Splash from './scenes/Splash';
 
 describe('engine', () => {
   describe('start', () => {
@@ -76,16 +77,20 @@ describe('engine', () => {
         );
       });
 
-      it('creates an engine with the map added', () => {
+      it('creates an engine with the map scene added', () => {
         expect(engine.add).toHaveBeenCalledWith('map', expect.any(Map));
+      });
+
+      it('creates an engine with the splash screen scene added', () => {
+        expect(engine.add).toHaveBeenCalledWith('splash', expect.any(Splash));
       });
 
       it('starts the game with the loader', () => {
         expect(engine.start).toHaveBeenCalledWith(expect.any(Loader));
       });
 
-      it('sets the starting scene to be the map', () => {
-        expect(engine.goToScene).toHaveBeenCalledWith('map');
+      it('sets the starting scene to be the splash screen', () => {
+        expect(engine.goToScene).toHaveBeenCalledWith('splash');
       });
     });
   });
