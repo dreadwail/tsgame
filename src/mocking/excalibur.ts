@@ -12,6 +12,8 @@ export const createMockEngine = (): Engine => {
   const mock = {
     drawWidth: 800,
     drawHeight: 600,
+    halfDrawWidth: 400,
+    halfDrawHeight: 300,
     add: jest.fn(),
     start: jest.fn(() => ({
       then: jest.fn(),

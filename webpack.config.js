@@ -2,6 +2,7 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const GoogleFontsPlugin = require('@beyonk/google-fonts-webpack-plugin');
 
 module.exports = {
   entry: './src/index.ts',
@@ -54,5 +55,8 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebPackPlugin({ title: 'Game' }),
     new CompressionWebpackPlugin(),
+    new GoogleFontsPlugin({
+      fonts: [{ family: 'Sigmar One' }],
+    }),
   ],
 };

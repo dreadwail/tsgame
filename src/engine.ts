@@ -1,7 +1,7 @@
 import { Color, DisplayMode, Engine } from 'excalibur';
 
 import { createLoader } from './loader';
-import { Map } from './scenes';
+import { Map, Splash } from './scenes';
 
 const engineOptions = {
   width: 800,
@@ -19,9 +19,12 @@ export const start = (): Promise<void> => {
     const map = new Map(engine);
     engine.add('map', map);
 
+    const splash = new Splash(engine);
+    engine.add('splash', splash);
+
     const loader = createLoader();
     engine.start(loader).then(resolve, reject);
 
-    engine.goToScene('map');
+    engine.goToScene('splash');
   });
 };

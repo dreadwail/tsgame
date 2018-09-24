@@ -1,5 +1,4 @@
 jest.mock('../actors/Player');
-jest.mock('excalibur');
 
 import { Engine } from 'excalibur';
 
@@ -21,9 +20,10 @@ describe('Map', () => {
     describe('when the player has not been initialized', () => {
       beforeEach(() => {
         map = new Map(engine);
-        map.onInitialize(engine);
 
         jest.spyOn(map, 'add');
+
+        map.onInitialize(engine);
       });
 
       it('initializes the player', () => {
