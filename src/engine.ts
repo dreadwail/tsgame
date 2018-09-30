@@ -17,10 +17,10 @@ export const start = (): Promise<void> => {
     const engine = new Engine(engineOptions);
 
     const map = new Map(engine);
-    engine.add('map', map);
+    engine.add(Map.sceneName, map);
 
     const splash = new Splash(engine);
-    engine.add('splash', splash);
+    engine.add(Splash.sceneName, splash);
 
     const loader = createLoader();
     engine.start(loader).then(resolve, reject);
