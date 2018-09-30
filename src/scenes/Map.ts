@@ -3,6 +3,8 @@ import { Engine, Scene } from 'excalibur';
 import { Player } from '../actors';
 
 export default class Map extends Scene {
+  public static sceneName = 'map';
+
   private player?: Player;
 
   public onInitialize(engine: Engine) {
