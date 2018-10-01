@@ -1,4 +1,4 @@
-import { Engine, Logger } from 'excalibur';
+import { Engine, Logger, Scene } from 'excalibur';
 
 export const createMockLogger = (): Logger => {
   const mock = {
@@ -14,7 +14,12 @@ export const createMockEngine = (): Engine => {
     drawHeight: 600,
     halfDrawWidth: 400,
     halfDrawHeight: 300,
-    add: jest.fn(),
+    add: jest.fn((...args: any[]) => {
+      if (args[1] instanceof Scene) {
+        const scene = args[1];
+        scene.engine = (mock as any) as Engine;
+      }
+    }),
     start: jest.fn(() => ({
       then: jest.fn(),
     })),
