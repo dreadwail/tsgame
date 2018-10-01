@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Splash onActivate correctly positions the menu entries 1`] = `
+Array [
+  Vector {
+    "x": 400,
+    "y": 300,
+  },
+  Vector {
+    "x": 400,
+    "y": 375,
+  },
+  Vector {
+    "x": 400,
+    "y": 580,
+  },
+]
+`;

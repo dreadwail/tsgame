@@ -10,11 +10,12 @@ describe('Splash', () => {
 
   beforeEach(() => {
     engine = createMockEngine();
+    splash = new Splash(engine);
+    engine.add(Splash.sceneName, splash);
   });
 
   describe('onInitialize', () => {
     beforeEach(() => {
-      splash = new Splash(engine);
       splash.onInitialize(engine);
     });
 
@@ -24,6 +25,21 @@ describe('Splash', () => {
         .map(label => label.text);
 
       expect(labels).toEqual(['Invaded', '(press any key to continue)', '© Ben Lakey 2018']);
+    });
+  });
+
+  describe('onActivate', () => {
+    beforeEach(() => {
+      splash.onInitialize(engine);
+      splash.onActivate();
+    });
+
+    it('correctly positions the menu entries', () => {
+      const labels = splash.actors
+        .filter((actor: Actor): actor is Label => actor instanceof Label)
+        .map(label => label.pos);
+
+      expect(labels).toMatchSnapshot();
     });
   });
 });
