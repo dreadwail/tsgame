@@ -12,8 +12,8 @@ const engineOptions = {
   backgroundColor: Color.Black,
 };
 
-export const start = (): Promise<void> => {
-  return new Promise((resolve, reject) => {
+export const start = (): Promise<void> =>
+  new Promise((resolve, reject) => {
     const engine = new Engine(engineOptions);
 
     const splash = new Splash(engine);
@@ -30,4 +30,3 @@ export const start = (): Promise<void> => {
 
     engine.goToScene(Splash.sceneName);
   });
-};

@@ -36,10 +36,15 @@ export default class Splash extends Scene {
     });
   }
 
-  public onInitialize(_engine: Engine) {
+  public onInitialize(engine: Engine) {
     this.add(this.gameName);
     this.add(this.pressKey);
     this.add(this.credit);
+
+    engine.input.keyboard.on('press', () => {
+      // emit an event to change the scene. code elsewhere will
+      // be responsible for listening and performing the actual scene change.
+    });
   }
 
   public onActivate() {
