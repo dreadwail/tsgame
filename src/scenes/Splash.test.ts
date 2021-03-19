@@ -22,9 +22,9 @@ describe('Splash', () => {
     it('initializes the correct labels', () => {
       const labels = splash.actors
         .filter((actor: Actor): actor is Label => actor instanceof Label)
-        .map(label => label.text);
+        .map((label) => label.text);
 
-      expect(labels).toEqual(['Invaded', '(press any key to continue)', '© Ben Lakey 2018']);
+      expect(labels).toEqual(['Invaded', '(press any key to continue)', '© Dreadwail 2018']);
     });
   });
 
@@ -37,7 +37,7 @@ describe('Splash', () => {
     it('correctly positions the menu entries', () => {
       const labels = splash.actors
         .filter((actor: Actor): actor is Label => actor instanceof Label)
-        .map(label => label.pos);
+        .map((label) => label.pos);
 
       expect(labels).toMatchSnapshot();
     });

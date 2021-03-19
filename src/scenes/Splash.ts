@@ -30,7 +30,7 @@ export default class Splash extends Scene {
     });
 
     this.credit = this.createLabel({
-      text: '© Ben Lakey 2018',
+      text: '© Dreadwail 2018',
       fontSize: 20,
       color: Color.Gray,
     });
